@@ -41,6 +41,14 @@ async function run() {
     res.send(result)
   })
 
+  app.get('/featuredreviews', async (req, res) => {
+  
+    const cursor = reviewsCollection.find().sort({ rating: -1 }).limit(6);
+    const result = await cursor.toArray();
+    res.send(result);
+  
+});
+
   // POST
    app.post('/reviews', async (req,res)=>{
        const newreview = req.body
@@ -50,7 +58,7 @@ async function run() {
 
   
 
-  // Get-one
+  //Find-one
    app.get('/reviews/:id', async(req,res)=>{
     const id = req.params.id
     const query = {
